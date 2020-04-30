@@ -7,6 +7,7 @@ defmodule Absinthe.PhoenixTest do
   setup_all do
     Absinthe.Test.prime(Schema)
 
+    _pid = start_supervised!(Phoenix.PubSub.child_spec(name: Absinthe.Phoenix.PubSub))
     {:ok, _} = Absinthe.Phoenix.TestEndpoint.start_link()
     {:ok, _} = Absinthe.Subscription.start_link(Absinthe.Phoenix.TestEndpoint)
     :ok
